@@ -86,3 +86,92 @@ BASE_SCORE_WEIGHTS = {
 }
 
 assert abs(sum(BASE_SCORE_WEIGHTS.values()) - 1.0) < 1e-9, "Base score weights must sum to 1.0"
+PENALTY_MULTIPLIERS = {
+    "research_only_no_production": 0.05,
+    "consulting_only_no_product_experience": 0.20,
+    "cv_speech_robotics_no_nlp_crossover": 0.25,
+    "langchain_tourist_no_pre_llm_experience": 0.20,
+    "pure_leadership_no_recent_code": 0.30,
+    "title_chaser_pattern": 0.55,
+}
+COMPANY_FOUNDING_YEAR = {
+    # Real Indian AI-native / product startups - the companies where an
+    # implausible "years at company vs founding year" honeypot is plausible.
+    "sarvam ai": 2023,
+    "krutrim": 2023,
+    "rephrase.ai": 2019,
+    "aganitha": 2017,
+    "niramai": 2016,
+    "saarthi.ai": 2017,
+    "mad street den": 2014,
+    "observe.ai": 2017,
+    "wysa": 2015,
+    "haptik": 2013,
+    "verloop.io": 2015,
+    "yellow.ai": 2016,
+    "locobuzz": 2011,
+    "glance": 2018,  # NOTE: sources conflict between 2018 (commercial launch)
+    # and 2019 (legal founding) - we use the earlier year so this check
+    # never wrongly flags a real candidate over an ambiguous date.
+
+    # Larger / well-established real Indian product and consulting companies -
+    # founded long enough ago that this check will not realistically fire,
+    # included for completeness.
+    "swiggy": 2014,
+    "razorpay": 2014,
+    "cred": 2018,
+    "capgemini": 1967,
+    "hcl": 1976,
+    "zomato": 2008,
+    "flipkart": 2007,
+    "mindtree": 1999,
+    "accenture": 1989,
+    "cognizant": 1994,
+    "tech mahindra": 1986,
+    "mphasis": 1998,
+    "genpact ai": 1997,
+    "meesho": 2015,
+    "nykaa": 2012,
+    "inmobi": 2007,
+    "byju's": 2011,
+    "policybazaar": 2008,
+    "ola": 2010,
+    "zoho": 1996,
+    "vedantu": 2014,
+    "paytm": 2010,
+    "unacademy": 2015,
+    "pharmeasy": 2015,
+    "upgrad": 2015,
+    "freshworks": 2010,
+    "phonepe": 2015,
+    "dream11": 2008,
+    "tcs": 1968,
+    "infosys": 1981,
+    "wipro": 1945,
+
+    # Global big tech - founding years included for completeness; with only
+    # 7-14 candidates each in the dataset and decades of history, this check
+    # will not realistically fire on these.
+    "google": 1998,
+    "netflix": 1997,
+    "amazon": 1994,
+    "salesforce": 1999,
+    "uber": 2009,
+    "meta": 2004,
+    "adobe": 1982,
+    "microsoft": 1975,
+    "apple": 1976,
+    "linkedin": 2002,
+
+    # Fictional placeholder companies used as filler employers in the dataset.
+    # No real founding date exists; treated as "always old enough" so the
+    # honeypot check never fires on them.
+    "pied piper": 1900,
+    "initech": 1900,
+    "wayne enterprises": 1900,
+    "acme corp": 1900,
+    "stark industries": 1900,
+    "hooli": 1900,
+    "globex inc": 1900,
+    "dunder mifflin": 1900,
+}
