@@ -33,6 +33,8 @@ product companies, not purely services or consulting. Active in the AI and
 machine learning space with real production deployment experience, not just
 academic research or recent LLM API wrapper projects.
 """
+
+
 def build_corpus_texts(candidate):
     p = candidate.get("profile", {})
     parts = [p.get("headline", ""), p.get("summary", ""), p.get("current_title", "")]
@@ -47,9 +49,11 @@ def build_corpus_texts(candidate):
         parts.append(role.get("description", ""))
 
     return " ".join(parts)
-    class JDTextSimilarityScorer:
-        def __init__(self):
-            self.vectorizer = TfidfVectorizer(
+
+
+class JDTextSimilarityScorer:
+    def __init__(self):
+        self.vectorizer = TfidfVectorizer(
             stop_words="english",
             max_features=5000,
             ngram_range=(1, 2),
@@ -67,6 +71,8 @@ def build_corpus_texts(candidate):
         candidate_vectors = self.fit(all_texts)
         similarities = cosine_similarity(self.jd_vector, candidate_vectors)[0]
         return similarities
+
+
 def score_jd_text_match_batch(candidates):
     texts = [build_corpus_texts(c) for c in candidates]
     scorer = JDTextSimilarityScorer()
